@@ -1,0 +1,38 @@
+networks:
+  default:
+    driver: bridge
+
+services:
+  lv-base:
+    image: kind-apps--lv:latest
+    build:
+      context: ../
+      dockerfile: docker/app/Dockerfile
+    command: ["echo", "'Do not run Base'"]
+
+  lv-a1:
+    image: kind-apps--lv:latest
+    env_file:
+      - .envs/lv-a1.env
+    networks:
+      - default
+    ports:
+      - 8001:8080
+
+  lv-a2:
+    image: kind-apps--lv:latest
+    env_file:
+      - .envs/lv-a2.env
+    networks:
+      - default
+    ports:
+      - 8002:8080
+
+  lv-a3:
+    image: kind-apps--lv:latest
+    env_file:
+      - .envs/lv-a3.env
+    networks:
+      - default
+    ports:
+      - 8003:8080
